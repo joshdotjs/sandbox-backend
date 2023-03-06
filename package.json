@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "serve",
+    "start": "nodemon index.js",
     "build": "echo This is a static template, there is no bundler or bundling involved!"
   },
   "repository": {
@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/codesandbox-app/static-template#readme",
   "devDependencies": {
+    "nodemon": "^2.0.21",
     "serve": "^11.2.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
