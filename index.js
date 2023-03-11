@@ -1,12 +1,27 @@
 console.log("HELLO");
 require("dotenv").config();
 require("colors");
-const server = require("./api/server");
+const path = require("path");
+
+// ==================================================
+
+const express = require("express");
+const server = express();
+
+server.use(express.json());
+server.use(express.static(path.join(__dirname, "static")));
 
 // ==================================================
 
 server.get("/status", (req, res) => {
   res.send("[GET] /status");
+});
+
+// ==================================================
+
+server.get("*", (req, res) => {
+  // res.send('<h1>fail</h1>');
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // ==================================================
