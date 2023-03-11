@@ -35,9 +35,16 @@ server.get("/users", (req, res) => {
 
 // ==================================================
 
-server.get("*", (req, res) => {
+server.get("/", (req, res) => {
   // res.send('<h1>fail</h1>');
   res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// ==================================================
+
+server.get("*", (req, res) => {
+  // res.send('<h1>fail</h1>');
+  res.sendFile(path.join(__dirname, "404.html"));
 });
 
 // ==================================================
