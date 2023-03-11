@@ -1,6 +1,8 @@
 console.log("HELLO");
 require("dotenv").config();
 require("colors");
+const morgan = require("morgan");
+const cors = require("cors");
 const path = require("path");
 
 // ==================================================
@@ -10,11 +12,25 @@ const server = express();
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "static")));
+server.use(morgan("dev"));
+server.use(cors());
 
 // ==================================================
 
 server.get("/status", (req, res) => {
   res.send("[GET] /status");
+});
+
+// ==================================================
+
+const { v4: uuid } = require("uuid");
+uuid();
+
+server.get("/users", (req, res) => {
+  res.status(200).send([
+    { id: uuid(), name: "josh" },
+    { id: uuid(), name: "steve" },
+  ]);
 });
 
 // ==================================================
