@@ -4,6 +4,7 @@ require("colors");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
+const { v4: uuid } = require("uuid");
 
 // ==================================================
 
@@ -19,18 +20,6 @@ server.use(cors());
 
 server.get("/status", (req, res) => {
   res.send("[GET] /status");
-});
-
-// ==================================================
-
-const { v4: uuid } = require("uuid");
-uuid();
-
-server.get("/users", (req, res) => {
-  res.status(200).send([
-    { id: uuid(), name: "josh" },
-    { id: uuid(), name: "steve" },
-  ]);
 });
 
 // ==================================================
@@ -72,6 +61,39 @@ db.all(sql, [], (err, rows) => {
   rows.forEach((row) => {
     console.log(row);
   });
+});
+
+// ==================================================
+
+// **********************
+// TODO: Error handling:
+// Possible errors:
+//  1. if (err) from DB query
+//  2. ...
+// **********************
+
+server.get("/users", (req, res) => {
+  
+  // query the data
+  sql = `SELECT * FROM USERS`;
+  db.all(sql, [], (err, rows) => {
+    
+    // TODO: Handle failing DB query here!
+    fErr(err);
+    
+    const users = [];
+    rows.forEach((row) => {
+      console.log(row);
+      users.push(row);
+    });
+    
+    res.status(200).send(users);
+  });
+  
+  // res.status(200).send([
+  //   { id: uuid(), name: "josh" },
+  //   { id: uuid(), name: "steve" },
+  // ]);
 });
 
 // ==================================================
