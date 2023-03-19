@@ -67,7 +67,7 @@ db.all(sql, [], (err, rows) => {
 // ==================================================
 
 // **********************
-// TODO: Error handling:
+// TODO: Complete error handling:
 // Possible errors:
 //  1. if (err) from DB query
 //  2. ...
@@ -96,6 +96,16 @@ server.get("/users", (req, res, next) => {
   });
 
 }); // server.get('/users')
+
+// ==================================================
+
+server.post('/user', (req, res, next) => {
+  
+  const message = '[POST] /user';
+  console.log(message);
+  
+  res.status(200).send({ message });
+});
 
 // ==================================================
 
