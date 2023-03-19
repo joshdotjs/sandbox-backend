@@ -27,6 +27,7 @@ server.get("/status", (req, res) => {
 // SQL
 const s3 = require("sqlite3").verbose();
 let sql;
+let params;
 const fErr = (err) => {
   if (err) return console.log(err);
 };
@@ -72,29 +73,29 @@ db.all(sql, [], (err, rows) => {
 //  2. ...
 // **********************
 
-server.get("/users", (req, res) => {
+server.get("/users", (req, res, next) => {
   
   // query the data
   sql = `SELECT * FROM USERS`;
-  db.all(sql, [], (err, rows) => {
+  params = [];
     
-    // TODO: Handle failing DB query here!
-    fErr(err);
+  db.all(sql, params, (err, rows) => { 
     
+    if (err) {
+      // async => use Express error-handling
+      return next({ 
+        status: 500, 
+        message: 'server error',
+        err 
+      });
+    }
+      
     const users = [];
-    rows.forEach((row) => {
-      console.log(row);
-      users.push(row);
-    });
-    
+    rows.forEach(row => users.push(row));
     res.status(200).send(users);
   });
-  
-  // res.status(200).send([
-  //   { id: uuid(), name: "josh" },
-  //   { id: uuid(), name: "steve" },
-  // ]);
-});
+
+}); // server.get('/users')
 
 // ==================================================
 
@@ -106,8 +107,15 @@ server.get("/", (req, res) => {
 // ==================================================
 
 server.get("*", (req, res) => {
-  // res.send('<h1>fail</h1>');
   res.sendFile(path.join(__dirname, "404.html"));
+});
+
+// ==================================================
+
+server.use((error, req, res, next) => {
+  console.log('error: ', error);
+  const { status, message, err } = error;
+  res.status(status).send({ status, err });
 });
 
 // ==================================================
