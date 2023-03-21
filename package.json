@@ -5,7 +5,12 @@
   "main": "index.html",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "echo This is a static template, there is no bundler or bundling involved!"
+    "build": "echo This is a static template, there is no bundler or bundling involved!",
+    
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "reset-db": "npm run rollback && npm run migrate && npm run seed"
   },
   "repository": {
     "type": "git",
@@ -29,6 +34,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "knex": "^2.4.2",
+    "knex-cleaner": "^1.3.1",
     "sqlite3": "^5.1.4",
     "uuid": "^9.0.0"
   }
