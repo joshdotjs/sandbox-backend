@@ -32,12 +32,14 @@ server.get("/", (req, res) => {
 const db = require('./db/cars');
 server.post('/api/cars', async (req, res) => {
   const results = await db.createCar(req.body);
-  res.status(201).json({ id: results[0] });
+  const id = results[0];
+  const cars = await db.getAllCars();
+  res.status(201).json({ message: `create car: success - new car id: ${id}`, cars, id });
 });
 
 server.get('/api/cars', async (req, res) => {
   const cars = await db.getAllCars();
-  res.status(200).json({ message: 'success', cars });
+  res.status(200).json({ message: 'get cars: success', cars });
   // res.status(200).json({ message: '[GET] /cars' });
 });
 
