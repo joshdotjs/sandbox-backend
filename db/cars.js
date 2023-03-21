@@ -1,19 +1,19 @@
-const knex = require('./knex');
+const db = require('./db-config');
 
 function createCar(car) {
-    return knex('cars').insert(car);
+    return db('cars').insert(car);
 }
 
 function getAllCars() {
-    return knex('cars').select('*');
+    return db('cars').select('*');
 }
 
 function deleteCar(id) {
-    return knex('cars').where('id', id).del();
+    return db('cars').where('id', id).del();
 }
 
 function updateCar(id, car) {
-    return knex('cars').where('id', id).update(car);
+    return db('cars').where('id', id).update(car);
 }
 
 module.exports = {
