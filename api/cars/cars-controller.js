@@ -58,7 +58,7 @@ const updateCar = async (req, res) => {
   const did_update = await carsModel.updateCar(id, car);
 
   if (did_update) {
-    const cars = await carsModel.getAllCars(); 
+    const cars = await carsModel.getAllCars();
     const message = `car updated up with id: ${id}`;
     res.status(200).json({ message, cars, id });
   }
@@ -71,9 +71,30 @@ const updateCar = async (req, res) => {
 
 // ==================================================
 
+const deleteCar = async (req, res) => {
+
+  const { id } = req.params;
+
+  const did_delete = await carsModel.deleteCar(id);
+  console.log('did_delete: ', did_delete);
+
+  if (did_delete) {
+    const cars = await carsModel.getAllCars(); 
+    const message = `car deleted with id: ${id}`;
+    res.status(200).json({ message, cars, id });
+  }
+  else {
+    const message = `car not found for id: ${id}`;
+    res.status(400).json({ message });
+  }
+};
+
+// ==================================================
+
 module.exports = {
   createCar,
   getAllCars,
   getCarByID,
   updateCar,
+  deleteCar,
 };

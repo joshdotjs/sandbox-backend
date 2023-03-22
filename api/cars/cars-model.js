@@ -21,13 +21,14 @@ function getCarByID(id) {
 // ==================================================
 
 function deleteCar(id) {
+  console.log('deleteCar model - id: ', id);
   return db('cars').where('id', id).del();
 }
 
 // ==================================================
 
 function updateCar(id, car) {
-  console.log('updateCar model - id: ', id);
+  // console.log('updateCar model - id: ', id);
   return db('cars').where('id', id).update(car);
 }
 
