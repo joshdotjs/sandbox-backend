@@ -24,11 +24,23 @@ server.use(cors());
 
 const carsModel = require('./db/cars');
 server.post('/api/cars', async (req, res) => {
-  const results = await carsModel.createCar(req.body);
-  const id = results[0];
-  const cars = await carsModel.getAllCars();
-  res.status(201).json({ message: `create car: success - new car id: ${id}`, cars, id });
+
+  console.log('req.body: ', req.body);
+
+  const car = req.body;
+  // car: { name: String }
+  if (car.name) {
+    const results = await carsModel.createCar(car);
+    const id = results[0];
+    const cars = await carsModel.getAllCars();
+    res.status(201).json({ message: `new car created with id: ${id}`, cars, id });
+  } else {
+    res.status(500).json({ message: 'name cannot be blank' });
+  }
+
 });
+
+// ==================================================
 
 server.get('/api/cars', async (req, res) => {
   const cars = await carsModel.getAllCars();
@@ -36,24 +48,26 @@ server.get('/api/cars', async (req, res) => {
   // res.status(200).json({ message: '[GET] /cars' });
 });
 
+// ==================================================
+
 server.get('/api/cars/:id', async (req, res) => {
   const { id } = req.params;
-  const log = `[GET] /cars/:${id}`;
-  console.log(log);
-  if (id > 0) {
-    const car = await carsModel.getCar(id);
-    const message = `get car: success - new car id: ${id}`;
+
+  const car = await carsModel.getCar(id);
+  if (car) {
+    const message = `new car id: ${id}`;
     res.status(200).json({ message, car });
-  } else {
-    const message = `get car: fail - car ID cannot be empty`;
+  }
+  else {
+    const message = `car not found for id: ${id}`;
     res.status(400).json({ message });
   }
+
 });
 
 // ==================================================
 
 server.get("/", (req, res) => {
-  // res.send('<h1>fail</h1>');
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
@@ -68,7 +82,7 @@ server.get("*", (req, res) => {
 server.use((error, req, res, next) => {
   console.log('error: ', error);
   const { status, message, err } = error;
-  res.status(status).send({ status, err });
+  res.status(status).send({ message, err });
 });
 
 // ==================================================

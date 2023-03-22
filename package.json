@@ -6,7 +6,6 @@
   "scripts": {
     "start": "nodemon index.js",
     "build": "echo This is a static template, there is no bundler or bundling involved!",
-    
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
