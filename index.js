@@ -1,4 +1,4 @@
-console.log("HELLO");
+console.log("JOSH");
 require("dotenv").config();
 require("colors");
 const morgan = require("morgan");
@@ -18,14 +18,7 @@ server.use(cors());
 
 // ==================================================
 
-server.use('/api/users', require('./api/users/users-routes'));
-
-// ==================================================
-
-server.get("/", (req, res) => {
-  // res.send('<h1>fail</h1>');
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+// server.use('/api/users', require('./api/users/users-routes'));
 
 // ==================================================
 
@@ -39,8 +32,22 @@ server.post('/api/cars', async (req, res) => {
 
 server.get('/api/cars', async (req, res) => {
   const cars = await db.getAllCars();
-  res.status(200).json({ message: 'get cars: success', cars });
+  res.status(200).json({ message: 'get cars: success UPDATE', cars });
   // res.status(200).json({ message: '[GET] /cars' });
+});
+
+server.get('/api/cars/:id', async (req, res) => {
+  const { id } = req.params;
+  const message = `[GET] /cars/:${id}`;
+  console.log(message);
+  res.status(200).json({ message });
+});
+
+// ==================================================
+
+server.get("/", (req, res) => {
+  // res.send('<h1>fail</h1>');
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // ==================================================
