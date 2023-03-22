@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const carsModel = require('../../db/cars');
+const carsModel = require('./cars-model');
 
 // ==================================================
 

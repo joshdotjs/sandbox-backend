@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const carsModel = require('../../db/cars');
-
 const controller = require('./cars-controller');
 
 // ==================================================
