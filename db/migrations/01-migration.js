@@ -2,7 +2,7 @@
 
 exports.up = async (knex) => {
   
-  // -Drop here is already exists!
+  // -Drop here if already exists!
   // await knex.schema.dropTableIfExists('cars');
   
   await knex.schema
