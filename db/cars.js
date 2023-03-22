@@ -8,6 +8,11 @@ function getAllCars() {
     return db('cars').select('*');
 }
 
+function getCar(id) {
+    return db('cars').where('id', id).first();
+}
+
+
 function deleteCar(id) {
     return db('cars').where('id', id).del();
 }
@@ -19,6 +24,7 @@ function updateCar(id, car) {
 module.exports = {
     createCar,
     getAllCars,
+    getCar,
     deleteCar,
     updateCar,
 };
