@@ -6,7 +6,7 @@ const carsModel = require('./cars-model');
 // ==================================================
 
 // [POST] /api/cars
-const postCars = async (req, res) => {
+const createCar = async (req, res) => {
 
   console.log('req.body: ', req.body);
 
@@ -26,9 +26,9 @@ const postCars = async (req, res) => {
 // ==================================================
 
 // [GET] /api/cars
-const getCars = async (req, res) => {
+const getAllCars = async (req, res) => {
   const cars = await carsModel.getAllCars();
-  res.status(200).json({ message: 'get cars: success UPDATE', cars });
+  res.status(200).json({ message: 'cars retrieved', cars });
   // res.status(200).json({ message: '[GET] /cars' });
 };
 
@@ -40,20 +40,38 @@ const getCarByID = async (req, res) => {
 
   const car = await carsModel.getCar(id);
   if (car) {
-    const message = `new car id: ${id}`;
+    const message = `car retrieved up with id: ${id}`;
     res.status(200).json({ message, car });
   }
   else {
     const message = `car not found for id: ${id}`;
     res.status(400).json({ message });
   }
-
 };
 
 // ==================================================
 
+// [PATCH] /api/cars/[id]
+const updateCar = async (req, res) => {
+  
+  console.log('[PATCH] /api/cars/[id]]');
+  
+  const id = await carsModel.updateCar(req.params.id, req.body)
+  console.log('id: ', id);
+
+  const cars = await carsModel.getAllCars();
+  console.log('updated cars: ', cars);
+
+  const message = `car updated up with id: ${id}`;
+  res.status(200).json({ message, cars, id });
+};
+
+
+// ==================================================
+
 module.exports = {
-  postCars,
-  getCars,
+  createCar,
+  getAllCars,
   getCarByID,
+  updateCar,
 };

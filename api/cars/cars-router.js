@@ -5,18 +5,10 @@ const controller = require('./cars-controller');
 
 // ==================================================
 
-// [POST] /api/cars
-router.post('/', controller.postCars);
-
-// ==================================================
-
-// [POST] /api/cars
-router.get('/', controller.getCars);
-
-// ==================================================
-
-// [POST] /api/cars/[id]
+router.post('/', controller.createCar);
+router.get('/', controller.getAllCars);
 router.get('/:id', controller.getCarByID);
+router.patch('/:id', controller.updateCar);
 
 // ==================================================
 

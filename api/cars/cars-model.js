@@ -14,7 +14,7 @@ function getAllCars() {
 
 // ==================================================
 
-function getCar(id) {
+function getCarByID(id) {
   return db('cars').where('id', id).first();
 }
 
@@ -27,6 +27,7 @@ function deleteCar(id) {
 // ==================================================
 
 function updateCar(id, car) {
+  console.log('updateCar model');
   return db('cars').where('id', id).update(car);
 }
 
@@ -35,7 +36,7 @@ function updateCar(id, car) {
 module.exports = {
   createCar,
   getAllCars,
-  getCar,
+  getCarByID,
   deleteCar,
   updateCar,
 };
