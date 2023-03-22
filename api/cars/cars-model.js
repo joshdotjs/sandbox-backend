@@ -27,7 +27,7 @@ function deleteCar(id) {
 // ==================================================
 
 function updateCar(id, car) {
-  console.log('updateCar model');
+  console.log('updateCar model - id: ', id);
   return db('cars').where('id', id).update(car);
 }
 

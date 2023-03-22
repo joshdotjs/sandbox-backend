@@ -7,11 +7,9 @@ const carsModel = require('./cars-model');
 
 // [POST] /api/cars
 const createCar = async (req, res) => {
-
-  console.log('req.body: ', req.body);
-
   const car = req.body;
   // car: { name: String }
+
   if (car.name) {
     const results = await carsModel.createCar(car);
     const id = results[0];
@@ -29,7 +27,6 @@ const createCar = async (req, res) => {
 const getAllCars = async (req, res) => {
   const cars = await carsModel.getAllCars();
   res.status(200).json({ message: 'cars retrieved', cars });
-  // res.status(200).json({ message: '[GET] /cars' });
 };
 
 // ==================================================
@@ -38,7 +35,7 @@ const getAllCars = async (req, res) => {
 const getCarByID = async (req, res) => {
   const { id } = req.params;
 
-  const car = await carsModel.getCar(id);
+  const car = await carsModel.getCarByID(id);
   if (car) {
     const message = `car retrieved up with id: ${id}`;
     res.status(200).json({ message, car });
@@ -53,19 +50,24 @@ const getCarByID = async (req, res) => {
 
 // [PATCH] /api/cars/[id]
 const updateCar = async (req, res) => {
-  
-  console.log('[PATCH] /api/cars/[id]]');
-  
-  const id = await carsModel.updateCar(req.params.id, req.body)
-  console.log('id: ', id);
+  // console.log('[PATCH] /api/cars/[id]]');  
 
-  const cars = await carsModel.getAllCars();
-  console.log('updated cars: ', cars);
+  const { id } = req.params;;
+  const car = req.body;
 
-  const message = `car updated up with id: ${id}`;
-  res.status(200).json({ message, cars, id });
+  const did_update = await carsModel.updateCar(id, car);
+
+  if (did_update) {
+    const cars = await carsModel.getAllCars(); 
+    const message = `car updated up with id: ${id}`;
+    res.status(200).json({ message, cars, id });
+  }
+  else {
+    const message = `car not found for id: ${id}`;
+    res.status(400).json({ message });
+  }
+
 };
-
 
 // ==================================================
 
