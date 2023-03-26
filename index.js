@@ -1,4 +1,3 @@
-console.log("JOSH");
 require("dotenv").config();
 require("colors");
 const morgan = require("morgan");
