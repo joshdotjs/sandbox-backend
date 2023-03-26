@@ -6,10 +6,10 @@ exports.seed = function (knex) {
   
   const cars = [
     {
-        name: 'josh'
+        name: 'chevy'
     },
     {
-        name: 'steve'
+        name: 'ford'
     },
   ];
 
