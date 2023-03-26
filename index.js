@@ -50,7 +50,7 @@ server.listen(PORT, () => {
   //     .america
   // );
     console.log(
-    `*** is running`
-      .america
+    `server is running`
+      .blue
   );
 });
