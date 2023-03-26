@@ -4,7 +4,6 @@ require("colors");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
-const { v4: uuid } = require("uuid");
 
 // ==================================================
 
@@ -46,8 +45,12 @@ server.use((error, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(
-    `*** server is running on: http://localhost:${PORT} in mode: ${process.env.NODE_ENV}`
+  // console.log(
+  //   `*** server is running on: http://localhost:${PORT} locallly`
+  //     .america
+  // );
+    console.log(
+    `*** is running`
       .america
   );
 });
